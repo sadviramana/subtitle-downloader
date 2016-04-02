@@ -2,14 +2,20 @@
 #get subtitles for a given movie
 # TODO: use another DB if subs are not found on subDB
 import hashlib
+
 import os
+
 import sys
+
 import logging
+
 import requests,time,re,zipfile
+
 from bs4 import BeautifulSoup
 PY_VERSION = sys.version_info[0]
 if PY_VERSION == 2:
     import urllib2
+    
 if PY_VERSION == 3:
     import urllib.request
 
