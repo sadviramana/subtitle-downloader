@@ -13,6 +13,7 @@ import requests,time,re,zipfile
 
 from bs4 import BeautifulSoup
 PY_VERSION = sys.version_info[0]
+
 if PY_VERSION == 2:
     import urllib2
     
@@ -30,9 +31,12 @@ def get_hash(file_path):
 
 
 def sub_downloader(file_path):
+
     # Put the code in a try catch block in order to continue for other video files, if it fails during execution
     try:
+    
         # Skip this file if it is not a video
+        
         root, extension = os.path.splitext(file_path)
         if extension not in [".avi", ".mp4", ".mkv", ".mpg", ".mpeg", ".mov", ".rm", ".vob", ".wmv", ".flv", ".3gp",".3g2"]:
             return
@@ -40,20 +44,25 @@ def sub_downloader(file_path):
         if not os.path.exists(root + ".srt"):
             headers = {'User-Agent': 'SubDB/1.0 (subtitle-downloader/1.0; http://github.com/manojmj92/subtitle-downloader)'}
             url = "http://api.thesubdb.com/?action=download&hash=" + get_hash(file_path) + "&language=en"
+            
             if PY_VERSION == 3:
                 req = urllib.request.Request(url, None, headers)
                 response = urllib.request.urlopen(req).read()
+                
             if PY_VERSION == 2:
                 req = urllib2.Request(url, '', headers)
                 response = urllib2.urlopen(req).read()
 
             with open(root + ".srt", "wb") as subtitle:
+            
                 subtitle.write(response)
                 logging.info("Subtitle successfully downloaded for " + file_path)
     except:
         #download subs from subscene if not found in subdb  
         sub_downloader2(file_path)
+        
 def sub_downloader2(file_path):
+
     try:
         root, extension = os.path.splitext(file_path)
         if extension not in [".avi", ".mp4", ".mkv", ".mpg", ".mpeg", ".mov", ".rm", ".vob", ".wmv", ".flv", ".3gp",".3g2"]:
@@ -98,11 +107,13 @@ def sub_downloader2(file_path):
 
 
 def main():
+
     root, _ = os.path.splitext(sys.argv[0])
     logging.basicConfig(filename=root + '.log', level=logging.INFO)
     logging.info("Started with params " + str(sys.argv))
 
     if len(sys.argv) == 1:
+    
         print("This program requires at least one parameter")
         sys.exit(1)
 
