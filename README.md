@@ -1,5 +1,5 @@
 # subtitle-downloader
-#get subtitles for a given movie
+# get subtitles for a given movie
 # TODO: use another DB if subs are not found on subDB
 import hashlib
 
